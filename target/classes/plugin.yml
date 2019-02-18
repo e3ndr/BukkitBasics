@@ -1,0 +1,41 @@
+name: BukkitBasics
+main: com.github.bukkitbasics.BukkitBasics
+version: 0.0.1-SNAPSHOT
+author: e3nder on Github
+commands:
+  spawn:
+    description: Takes you to the server spawn
+    usage: /<command>
+    permission: BukktiBasics.spawn
+    permission-message: You don't have <permission>!
+  setspawn:
+    description: Sets the world spawn
+    usage: /<command>
+    permission: BukktiBasics.setspawn
+    permission-message: You don't have <permission>!
+  coords:
+    description: Shows you your coords
+    usage: /<command>
+    permission: BukktiBasics.coords
+    permission-message: You don't have <permission>!
+  setlang:
+    description: Sets the value of the lang value you specify
+    usage: /<command> <lang> <value>
+    permission: BukktiBasics.setlang
+    permission-message: You don't have <permission>!
+  resetlang:
+    description: Resets the lang file, irreversible.
+    usage: /<command>
+    permission: BukktiBasics.resetlang
+    permission-message: You don't have <permission>!
+  motd:
+    description: Shows the server motd.
+    usage: /<command>
+    permission: BukktiBasics.motd
+    permission-message: You don't have <permission>!
+  bbdebug:
+    description: Shows variables used by the server
+    usage: /<command>
+    permission: BukktiBasics.debug
+    permission-message: You don't have <permission>!
+    
