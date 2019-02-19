@@ -1,41 +1,152 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 0.0.1-SNAPSHOT
+version: 0.0.2-SNAPSHOT
+description: A modern version of EssentialsX with more features and more bugs!
 author: e3nder on Github
+
 commands:
+  # defaults
   spawn:
     description: Takes you to the server spawn
-    usage: /<command>
-    permission: BukktiBasics.spawn
-    permission-message: You don't have <permission>!
-  setspawn:
-    description: Sets the world spawn
-    usage: /<command>
-    permission: BukktiBasics.setspawn
-    permission-message: You don't have <permission>!
+    usage: /<command> [player]
   coords:
     description: Shows you your coords
     usage: /<command>
-    permission: BukktiBasics.coords
+    permission: BukkitBasics.coords
     permission-message: You don't have <permission>!
+  suicide:
+    description: Kills you. Instantly. Irreversibly. 1-800-273-8255
+    usage: /<command>
+  motd:
+    description: Shows the server motd.
+    usage: /<command>
+    permission: BukkitBasics.motd
+    permission-message: You don't have <permission>!
+    
+  # ops
   setlang:
     description: Sets the value of the lang value you specify
     usage: /<command> <lang> <value>
-    permission: BukktiBasics.setlang
+    permission: BukkitBasics.setlang
     permission-message: You don't have <permission>!
   resetlang:
     description: Resets the lang file, irreversible.
     usage: /<command>
-    permission: BukktiBasics.resetlang
+    permission: BukkitBasics.resetlang
     permission-message: You don't have <permission>!
-  motd:
-    description: Shows the server motd.
+  setspawn:
+    description: Sets the world spawn
     usage: /<command>
-    permission: BukktiBasics.motd
+    permission: BukkitBasics.setspawn
     permission-message: You don't have <permission>!
   bbdebug:
     description: Shows variables used by the server
     usage: /<command>
-    permission: BukktiBasics.debug
+    permission: BukkitBasics.debug
     permission-message: You don't have <permission>!
+  gamemode:
+    description: Changes your gamemode
+    aliases: gm
+    usage: /<command> <gamemode> [player]
+  gms:
+    description: Changes your gamemode to survival
+    usage: /<command> [player]
+  gmc:
+    description: Changes your gamemode to creative
+    usage: /<command> [player]
+  gma:
+    description: Changes your gamemode to adventure
+    usage: /<command> [player]
+  gmsp:
+    description: Changes your gamemode to spectator
+    usage: /<command> [player]
+  fly:
+    description: Allows you to set your flying status
+    usage: /<command> [player]
     
+permissions:
+   BukkitBasics.*:
+     description: Gives access to all BukkitBasics commands
+     children:
+       # defaults
+       BukkitBasics.spawn: true
+       BukkitBasics.suicide: true
+       BukkitBasics.motd: true
+       BukkitBasics.coords: true
+       # ops
+       BukkitBasics.spawn.others: true
+       BukkitBasics.debug: true
+       BukkitBasics.setlang: true
+       BukkitBasics.setspawn: true
+       BukkitBasics.gamemode.self: true
+       BukkitBasics.gamemode.others: true
+       BukkitBasics.gamemode.survival: true
+       BukkitBasics.gamemode.creative: true
+       BukkitBasics.gamemode.adventure: true
+       BukkitBasics.gamemode.spectator: true
+       BukkitBasics.fly: true
+       BukkitBasics.fly.others: true
+       
+   BukkitBasics.gamemode.*:
+     description: Gives access to all gamemode commands
+     children:
+       BukkitBasics.gamemode.self: true
+       BukkitBasics.gamemode.others: true
+       BukkitBasics.gamemode.survival: true
+       BukkitBasics.gamemode.creative: true
+       BukkitBasics.gamemode.adventure: true
+       BukkitBasics.gamemode.spectator: true
+       
+   # defaults
+   BukkitBasics.spawn:
+     description: Teleports you to spawn
+     default: true
+   BukkitBasics.suicide:
+     description: Allows you to kill yourself
+     default: true
+   BukkitBasics.motd:
+     description: Shows the MOTD
+     default: true
+   BukkitBasics.coords:
+     description: Shows your coordinates
+     default: true
+   
+   #ops
+   BukkitBasics.spawn.others:
+     description: Teleports someone else to spawn
+     default: op
+   BukkitBasics.debug:
+     description: Shows the debug information
+     default: op
+   BukkitBasics.setlang:
+     description: Sets a lang key
+     default: op
+   BukkitBasics.setspawn:
+     description: Sets the world spawn
+     default: op
+   BukkitBasics.gamemode.self:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.gamemode.others:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.gamemode.survival:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.gamemode.creative:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.gamemode.adventure:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.gamemode.spectator:
+     description: Change your gamemode
+     default: op
+   BukkitBasics.fly:
+     description: Allows you to fly
+     default: op
+   BukkitBasics.fly.others:
+     description: Allows others to fly
+     default: op
+   
+   

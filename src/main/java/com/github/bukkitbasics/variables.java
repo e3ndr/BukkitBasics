@@ -9,6 +9,7 @@ public class variables {
 	public static String motd = "";
 	public static boolean motdUse = false;
 	public static boolean showMotd = true;
+	public static boolean customJoinMessage = false;
 	
 	
 	public static void setVars() {

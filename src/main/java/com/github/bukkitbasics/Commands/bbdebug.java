@@ -10,11 +10,13 @@ public class bbdebug implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		sender.sendMessage("Â§8[Â§4START DEBUGÂ§8]Â§r");
+		sender.sendMessage("§8[§4START DEBUG§8]§r");
 		
 		sender.sendMessage("Motd: m:" + variables.motd + " u:" + variables.motdUse  + " s:" + variables.showMotd);
+		sender.sendMessage("Listeners: jm:" + variables.customJoinMessage);
 		
-		sender.sendMessage("Â§8[Â§4END DEBUGÂ§8]Â§r");
+		
+		sender.sendMessage("§8[§4END DEBUG§8]§r");
 		
 		return true;
 	}

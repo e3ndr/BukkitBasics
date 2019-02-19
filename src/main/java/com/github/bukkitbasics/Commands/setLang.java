@@ -30,11 +30,13 @@ public class setLang implements CommandExecutor {
 				case "spawn.set": lang.setLang(args[0], value); break;
 				case "coords.0": lang.setLang(args[0], value); break;
 				case "coords.1": lang.setLang(args[0], value); break;
+				case "join": lang.setLang(args[0], value); break;
+				case "no.perm": lang.setLang(args[0], value); break;
 				
 				default: return false;
 			}
 			DebugPrinter.println(player.getName() + " set " + args[0] + " to " + value);
-			player.sendMessage("Set " + args[0] + " to " + value.replace("&", "ยง"));
+			player.sendMessage("Set " + args[0] + " to " + value.replace("&", "ง"));
 			return true;
 		}
 	}

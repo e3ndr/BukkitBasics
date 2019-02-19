@@ -32,21 +32,28 @@ public class PluginConfig {
         for (int i = 0; i != configRaw.size(); i++) {
         	String configLine = configRaw.get(i);
         	
-        	if (configLine.substring(0, 5).equals("motd:")) {
+        	if (configLine.length() > 6 && configLine.substring(0, 5).equals("motd:")) {
         		variables.motd = configLine.substring(5, configLine.length());
         	}
-        	if (configLine.substring(0, 8).equals("motdUse:")) {
+        	if (configLine.length() > 7 && configLine.substring(0, 8).equals("motdUse:")) {
         		if (configLine.substring(8, configLine.length()).equals("true")) {
         			variables.motdUse = true;
         		} else {
         			variables.motdUse = false;
         		}
         	}
-        	if (configLine.substring(0, 9).equals("showMotd:")) {
+        	if (configLine.length() > 8 && configLine.substring(0, 9).equals("showMotd:")) {
         		if (configLine.substring(9, configLine.length()).equals("false")) {
         			variables.showMotd = false;
         		} else {
         			variables.showMotd = true;
+        		}
+        	}
+        	if (configLine.length() > 17 && configLine.substring(0, 18).equals("customJoinMessage:")) {
+        		if (configLine.substring(18, configLine.length()).equals("false")) {
+        			variables.customJoinMessage = false;
+        		} else {
+        			variables.customJoinMessage = true;
         		}
         	}
         	
@@ -58,6 +65,8 @@ public class PluginConfig {
 	    PrintWriter printWriter = new PrintWriter(fileWriter);
 	    
 	    // motd
+	    printWriter.println("# PLUGIN CONFIG FOR BUKKIT BASICS");
+	    printWriter.println("#");
 	    printWriter.println("# These are the variables for /motd.");
 	    printWriter.println("# motd is the message you want to send to the player on join, string");
 	    printWriter.println("# motdUse decides wether or not to use the server's native motd that is shown in the multiplayer screen, boolean");
@@ -65,6 +74,9 @@ public class PluginConfig {
 	    printWriter.println("motd:Welcome to the server!");
 	    printWriter.println("motdUse:false");
 	    printWriter.println("showMotd:true");
+	    printWriter.println("#");
+	    printWriter.println("# Miscellanous");
+	    printWriter.println("customJoinMessage:false");
 	    
 	    printWriter.close();
 	}
