@@ -6,3 +6,4 @@
 *.lst
 target/maven-archiver/pom.properties
 target/classes/plugin.yml
+dependency-reduced-pom.xml
