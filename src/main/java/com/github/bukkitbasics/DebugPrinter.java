@@ -3,7 +3,6 @@ package com.github.bukkitbasics;
 public class DebugPrinter {
 	private static BukkitBasics instance;
 	private static boolean testmode = false;
-	private static boolean debug = false;
 
 	// used internally
 	
@@ -25,11 +24,4 @@ public class DebugPrinter {
 		println("Print type changed.");
 		return;
 	}
-	
-	public static void debugmode(boolean b) {
-		debug = b;
-		println("Debug mode on.");
-		return;
-	}
-	
 }

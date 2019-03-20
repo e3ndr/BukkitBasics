@@ -14,7 +14,7 @@ import com.github.bukkitbasics.variables;
 public class PluginConfig {
 	private static ArrayList<String> configRaw = new ArrayList<String>();
 	
-	private static String file= "plugins/BukkitBasics/config.txt";
+	private static String file = "plugins/BukkitBasics/config.txt";
 	private static void read() throws IOException {
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);

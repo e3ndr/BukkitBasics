@@ -20,7 +20,7 @@ public class setspawn implements CommandExecutor {
 			player.sendMessage(lang.get("spawn.set").replace("$location", location));
 			return true;
 		} else {
-			sender.sendMessage("You must be in the overworld to set spawn!");
+			sender.sendMessage("You must be in the overworld to set spawn!"); // TODO lang
 			return false;
 		}
 	}

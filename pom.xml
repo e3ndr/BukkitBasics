@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.bukkitbasics</groupId>
     <artifactId>bukkitbasics</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>1.0.0</version>
     <build>
         <plugins>
             <plugin>
@@ -13,6 +13,23 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-shade-plugin</artifactId>
+       		 	<version>3.2.1</version>
+        		<configuration>
+					    <shadedArtifactAttached>true</shadedArtifactAttached>
+              			<shadedClassifierName>included</shadedClassifierName> <!-- Any name that makes sense -->
+        		</configuration>
+        		<executions>
+          			<execution>
+            			<phase>package</phase>
+            			<goals>
+              			<goal>shade</goal>
+            			</goals>
+          			</execution>
+        		</executions>
+      		</plugin>
         </plugins>
     </build>
     <repositories>
@@ -29,11 +46,12 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-		<dependency>
-   			<groupId>com.googlecode.json-simple</groupId>
-    		<artifactId>json-simple</artifactId>
-    		<version>1.1.1</version>
+        <dependency>
+    		<groupId>com.github.xcore</groupId>
+    		<artifactId>xcore</artifactId>
+    		<version>1.0.0</version>
+    		<type>jar</type>
+    		<scope>compile</scope>
 		</dependency>
     </dependencies>
 </project>

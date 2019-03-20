@@ -10,9 +10,11 @@ import com.github.bukkitbasics.Commands.motd;
 import com.github.bukkitbasics.Commands.resetLang;
 import com.github.bukkitbasics.Commands.setLang;
 import com.github.bukkitbasics.Commands.setspawn;
+import com.github.bukkitbasics.Commands.setwarp;
 import com.github.bukkitbasics.Commands.spawn;
 import com.github.bukkitbasics.Commands.suicide;
-import com.github.bukkitbasics.Config.PlayerDataBase;
+import com.github.bukkitbasics.Commands.warp;
+import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Config.PluginConfig;
 import com.github.bukkitbasics.Listeners.LoginListener;
 
@@ -25,6 +27,7 @@ public final class BukkitBasics extends JavaPlugin {
 		instance = this;
 		variables.setVars();
 		DebugPrinter.instance(instance);
+		WarpDatabase.init();
 		lang.init();
 		PluginConfig.init();
 		getServer().getPluginManager().registerEvents(new LoginListener(), this);
@@ -43,6 +46,8 @@ public final class BukkitBasics extends JavaPlugin {
 		this.getCommand("gma").setExecutor(new gamemode());
 		this.getCommand("gmsp").setExecutor(new gamemode());
 		this.getCommand("fly").setExecutor(new fly());
+		this.getCommand("warp").setExecutor(new warp());
+		this.getCommand("setwarp").setExecutor(new setwarp());
 		
 	}
 

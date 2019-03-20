@@ -1,6 +1,6 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 0.0.2-SNAPSHOT
+version: 0.0.3-SNAPSHOT
 description: A modern version of EssentialsX with more features and more bugs!
 author: e3nder on Github
 
@@ -63,7 +63,16 @@ commands:
   fly:
     description: Allows you to set your flying status
     usage: /<command> [player]
-    
+  warp:
+    description: Teleports you to a specified warp
+    aliases: [pwarp, tpme, warps]
+    usage: /<command> <warp> [player]
+  setwarp:
+    description: Adds a warp
+    aliases: [setpwarp, settpme]
+    usage: /<command> <name> [perm]
+
+
 permissions:
    BukkitBasics.*:
      description: Gives access to all BukkitBasics commands
