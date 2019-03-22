@@ -3,14 +3,13 @@ package com.github.bukkitbasics.Config;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import com.github.bukkitbasics.DebugPrinter;
+import com.github.bukkitbasics.BBLogger;
 
 public class WarpDatabase {
 	public static File warps;
@@ -19,7 +18,7 @@ public class WarpDatabase {
 	public static void init() {
 		warps = new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/warps.txt");
 		if (!warps.exists()) {
-			DebugPrinter.println("Making Warp Database");
+			BBLogger.println("Making Warp Database");
 			new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/").mkdir();
 	        try {
 				warps.createNewFile();
@@ -27,9 +26,8 @@ public class WarpDatabase {
 				pw.write("");
 		        pw.flush();
 		        pw.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (IOException e) {
+				BBLogger.exception(e);
 			}
 		}
 		update();
@@ -123,8 +121,7 @@ public class WarpDatabase {
 		try {
 			pw = new PrintWriter(new BufferedWriter(new FileWriter(warps, true)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			BBLogger.exception(e);
 		}
 		pw.println(key + ":" + data);
         pw.flush();

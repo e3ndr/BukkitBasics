@@ -21,10 +21,10 @@ public class LoginListener implements Listener {
 		 
 		 // motd
 		 if (variables.showMotd) {
-			 if (variables.motdUse) {
+			 if (variables.use_server_motd) {
 					player.sendMessage(Bukkit.getServer().getMotd());
 				} else {
-					player.sendMessage(variables.motd);
+					player.sendMessage(variables.motd.replace("$player", player.getDisplayName()));
 				}
 		 }
 		 

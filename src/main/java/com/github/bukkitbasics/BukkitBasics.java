@@ -1,11 +1,12 @@
 package com.github.bukkitbasics;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.bukkitbasics.Commands.bbdebug;
 import com.github.bukkitbasics.Commands.coords;
 import com.github.bukkitbasics.Commands.fly;
 import com.github.bukkitbasics.Commands.gamemode;
-import com.github.bukkitbasics.Commands.bbdebug;
 import com.github.bukkitbasics.Commands.motd;
 import com.github.bukkitbasics.Commands.resetLang;
 import com.github.bukkitbasics.Commands.setLang;
@@ -14,23 +15,28 @@ import com.github.bukkitbasics.Commands.setwarp;
 import com.github.bukkitbasics.Commands.spawn;
 import com.github.bukkitbasics.Commands.suicide;
 import com.github.bukkitbasics.Commands.warp;
-import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Config.PluginConfig;
+import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Listeners.LoginListener;
 
 public final class BukkitBasics extends JavaPlugin {
-	static BukkitBasics instance;
-    
+	public static BukkitBasics instance;
+    public static boolean reload;
 
 	@Override
     public void onEnable() {
 		instance = this;
 		variables.setVars();
-		DebugPrinter.instance(instance);
+		BBLogger.instance(instance);
 		WarpDatabase.init();
 		lang.init();
 		PluginConfig.init();
 		getServer().getPluginManager().registerEvents(new LoginListener(), this);
+		
+		BBLogger.println(("&dBukkitBasics &aversion " + this.getDescription().getVersion()).replace("&", "§"));
+		BBLogger.println(("\"&a" + this.getDescription().getDescription() + "&r\"").replace("&", "§"));
+		
+		DynamicCommands.init();
 		
 		this.getCommand("spawn").setExecutor(new spawn());
 		this.getCommand("setspawn").setExecutor(new setspawn());
@@ -49,11 +55,21 @@ public final class BukkitBasics extends JavaPlugin {
 		this.getCommand("warp").setExecutor(new warp());
 		this.getCommand("setwarp").setExecutor(new setwarp());
 		
+		
 	}
 
 	@Override
     public void onDisable() {
+		BBLogger.println("§4 Currently the reloading of custom commands is not supported. Restart the server to see changes take effect.");
 		instance = null;
+		DynamicCommands.clean();
+		
+		
+		
+		if (reload) {
+			Bukkit.getServer().getPluginManager().enablePlugin(this);
+			reload = false;
+		}
 	}
 	
 }

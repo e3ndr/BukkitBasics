@@ -12,13 +12,12 @@ public class lang {
 	public static void init() {
 		lang = new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/lang.txt");
 		if (!lang.exists()) {
-			DebugPrinter.println("Making Lang Config");
+			BBLogger.println("Making Lang Config");
 			new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/").mkdirs();
 	        try {
 				lang.createNewFile();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (IOException e) {
+				BBLogger.exception(e);
 			}
 			create();
 		}
@@ -33,6 +32,7 @@ public class lang {
 				{"coords.1", "&8[&4Server&8]&r With a pitch of: &7$pitch &rand a yaw of: &7$yaw"},
 				{"join.message", "&e$player joined the game"},
 				{"no.perm", "&8[&4Server&8]&r Sorry, but you do not have permission &7$permission &rthat is required to do this"},
+				{"no.perm.others", "&8[&4Server&8]&r Sorry, but that player does not have &7$permission &rthat is required to do this"},
 				{"gamemode.updated.0", "&8[&4Server&8]&r Your gamemode was updated to $mode"},
 				{"gamemode.updated.1", "&8[&4Server&8]&r $player updated your gamemode to $mode"},
 				{"gamemode.updated.others", "&8[&4Server&8]&r Updated the gamemode for $player to $mode"},
@@ -44,13 +44,17 @@ public class lang {
 				{"warp.self", "&8[&4Server&8]&r Warped you to $warp"},
 				{"warp.list", "&8[&4Server&8]&r Warps: $list"},
 				{"warp.none", "&8[&4Server&8]&r There are no warps available."},
-				{"warp.not_found", "&8[&4Server&8]&r Warp not found!"}
+				{"warp.no_perm", "&8[&4Server&8]&r Sorry, but you do not have permission &7$permission &rthat is required to warp here"},
+				{"warp.not_found", "&8[&4Server&8]&r Warp not found!"},
+				{"internal.error","&8[&4Server&8]&r An error internal occured, notify a staff member"},
+				{"custom.discord","&8[&4Server&8]&r https://..."},
+				{"custom.website","&8[&4Server&8]&r https://..."}
 		};
 		DataBase db = new DataBase("./plugins/BukkitBasics/lang.txt", data);
 		try {
 			TextDataBase.writeDataBase(db);
 		} catch (IOException e) {
-			DebugPrinter.println("Creation of lang config failed, stack trace:");
+			BBLogger.println("Creation of lang config failed, stack trace:");
 			e.printStackTrace();
 		}
 		LangDB = db;
@@ -70,8 +74,7 @@ public class lang {
 		try {
 			LangDB = TextDataBase.getDataBase("./plugins/BukkitBasics/lang.txt");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			BBLogger.exception(e);
 		}
 	}
 	public static void setLang(String langKey, String value) {
@@ -80,11 +83,11 @@ public class lang {
 		for (int i = 0; i != data.length; i++) {
 			if (data[i][0] == langKey) {
 				data[i][1] = value;
-				LangDB = new DataBase(LangDB.getInfo(), data);
+				LangDB = new DataBase(LangDB.getLocation(), data);
 				try {
 					TextDataBase.writeDataBase(LangDB);
 				} catch (IOException e) {
-					DebugPrinter.println("Modification of lang config failed, stack trace:");
+					BBLogger.println("Modification of lang config failed, stack trace:");
 					e.printStackTrace();
 				}
 				update();
@@ -97,7 +100,7 @@ public class lang {
 		try {
 			TextDataBase.writeDataBase(LangDB);
 		} catch (IOException e) {
-			DebugPrinter.println("Modification of lang config failed, stack trace:");
+			BBLogger.println("Modification of lang config failed, stack trace:");
 			e.printStackTrace();
 		}
 		update();

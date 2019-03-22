@@ -16,7 +16,7 @@ public class setwarp implements CommandExecutor {
 			Player player = (Player) sender;
 			
 			// format is: x,y,z,world,pitch,yaw,perm,name
-			sender.sendMessage(WarpDatabase.add(args[0], 
+			String result = WarpDatabase.add(args[0], 
 					player.getLocation().getBlockX() + "," + 
 					player.getLocation().getBlockY() + "," + 
 					player.getLocation().getBlockZ() + "," + 
@@ -25,9 +25,14 @@ public class setwarp implements CommandExecutor {
 					player.getLocation().getYaw() + "," + 
 					"perm" + "," +
 					args[0]
-					));
-			sender.sendMessage(lang.get("warp.set").replace("$warp", args[0]));
-			return true;
+					);
+			if (result.equals("")) {
+				sender.sendMessage(lang.get("warp.set").replace("$warp", args[0]));
+				return true;
+			} else {
+				sender.sendMessage(lang.get("error.syntax"));
+				return false;
+			}
 		} else if (!sender.hasPermission("BukkitBasics.warp.set")) {
 			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.warp.set"));
 			return false;

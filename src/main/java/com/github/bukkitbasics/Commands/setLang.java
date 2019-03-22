@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.DebugPrinter;
+import com.github.bukkitbasics.BBLogger;
 import com.github.bukkitbasics.lang;
 
 public class setLang implements CommandExecutor {
@@ -35,7 +35,7 @@ public class setLang implements CommandExecutor {
 				
 				default: return false;
 			}
-			DebugPrinter.println(player.getName() + " set " + args[0] + " to " + value);
+			BBLogger.println(player.getName() + " set " + args[0] + " to " + value);
 			player.sendMessage("Set " + args[0] + " to " + value.replace("&", "§"));
 			return true;
 		}

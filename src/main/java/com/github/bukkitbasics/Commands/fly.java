@@ -10,6 +10,7 @@ import com.github.bukkitbasics.lang;
 
 public class fly implements CommandExecutor {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {

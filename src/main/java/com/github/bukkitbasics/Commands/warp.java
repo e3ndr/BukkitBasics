@@ -15,10 +15,23 @@ public class warp implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName() == "warps" || args.length == 0) {
+		if (command.getName() == "warps" || args.length == 0 && sender.hasPermission("BukkitBasics.warp.list")) {
 			sender.sendMessage(lang.get("warp.list").replace("$list", WarpDatabase.get("@").substring(1)));
 			return true;
+		} else if ((command.getName() == "warps" || args.length == 0) && !(sender.hasPermission("BukkitBasics.warp.list"))) {
+			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.warp.list"));
+			return true;
 		}
+		
+		if (args.length == 1 && !(sender.hasPermission("BukkitBasics.warp"))) {
+			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.warp"));
+			return true;
+		}
+		if (args.length > 1 && !(sender.hasPermission("BukkitBasics.warp.others"))) {
+			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.warp.others"));
+			return true;
+		}
+		
 		if (sender instanceof ConsoleCommandSender && args.length == 1) {
 			sender.sendMessage("Console is only able to teleport players directly (\"warp <location> <player>\")");
 			return true;
@@ -42,8 +55,8 @@ public class warp implements CommandExecutor {
 		String world = ""; // TODO prevent malformed String data
 		Float pitch = 0f; // TODO prevent malformed String data
 		Float yaw = 0f; // TODO prevent malformed String data
-		String perm = ""; // TODO prevent malformed String data, implement
-		String warpName = "";
+		String perm = ""; // TODO prevent malformed String data
+		String warpName = ""; // TODO prevent malformed String data
 		
 		x = Integer.valueOf(data.substring(0, data.indexOf(",")));
 		data = data.substring(data.indexOf(",") + 1);
@@ -62,12 +75,17 @@ public class warp implements CommandExecutor {
 		warpName = data.replace("&", "§");
 		Location loc = new Location(Bukkit.getWorld(world), x, y, z); // TODO yaw & pitch
     	Player player;
+    	
     	if (args.length < 2) {
     		player = (Player) sender;
-    		player.sendMessage(lang.get("warp.self").replace("$warp", args[0]));
+    		if (sender.hasPermission(perm) || (perm.equals("perm") || perm.equals("null"))) {
+    			player.sendMessage(lang.get("warp.self").replace("$warp", warpName));
+    		} else {
+    			player.sendMessage(lang.get("warp.no_perm").replace("$permission", perm));
+    		}
     	} else {
     		player = Bukkit.getPlayer(args[1]);
-    		player.sendMessage(lang.get("warp.others").replace("$warp", args[0]).replace("$player", sender.getName()));
+	    	player.sendMessage(lang.get("warp.others").replace("$warp", warpName).replace("$player", sender.getName()));
     	}
 		
     	player.teleport(loc);

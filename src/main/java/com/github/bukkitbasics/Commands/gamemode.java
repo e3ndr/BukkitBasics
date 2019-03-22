@@ -112,7 +112,7 @@ public class gamemode implements CommandExecutor {
 			return false;
 		}
 	}
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "deprecation" })
 	private boolean gamemodeOthers(CommandSender sender, GameMode gamemode, String player) {
 		if (false) {
 			// TODO @a selector

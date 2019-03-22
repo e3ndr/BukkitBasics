@@ -12,7 +12,8 @@ import com.github.bukkitbasics.variables;
 
 public class spawn implements CommandExecutor {
 	
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     	Location pos = Bukkit.getServer().getWorld(variables.main_world_name).getSpawnLocation();
     	Location loc = new Location(Bukkit.getWorld(variables.main_world_name), pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());

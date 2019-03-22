@@ -12,11 +12,11 @@ public class motd implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (variables.showMotd) {
-			if (variables.motdUse) {
+			if (variables.use_server_motd) {
 				sender.sendMessage(Bukkit.getServer().getMotd());
 				return true;
 			} else {
-				sender.sendMessage(variables.motd);
+				sender.sendMessage(variables.motd.replace("%player", sender.getName()));
 				return true;
 			}
 		}

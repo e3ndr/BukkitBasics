@@ -1,8 +1,9 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 0.0.3-SNAPSHOT
+version: 1.1.0
 description: A modern version of EssentialsX with more features and more bugs!
 author: e3nder on Github
+website: https://github.com/e3ndr/BukkitBasics
 
 commands:
   # defaults
@@ -22,7 +23,11 @@ commands:
     usage: /<command>
     permission: BukkitBasics.motd
     permission-message: You don't have <permission>!
-    
+  warp:
+    description: Teleports you to a specified warp
+    aliases: [pwarp, tpme, warps]
+    usage: /<command> <warp> [player]
+  
   # ops
   setlang:
     description: Sets the value of the lang value you specify
@@ -41,7 +46,8 @@ commands:
     permission-message: You don't have <permission>!
   bbdebug:
     description: Shows variables used by the server
-    usage: /<command>
+    usage: /<command> <key> <value>
+    aliases: bb
     permission: BukkitBasics.debug
     permission-message: You don't have <permission>!
   gamemode:
@@ -63,10 +69,6 @@ commands:
   fly:
     description: Allows you to set your flying status
     usage: /<command> [player]
-  warp:
-    description: Teleports you to a specified warp
-    aliases: [pwarp, tpme, warps]
-    usage: /<command> <warp> [player]
   setwarp:
     description: Adds a warp
     aliases: [setpwarp, settpme]
@@ -105,7 +107,18 @@ permissions:
        BukkitBasics.gamemode.creative: true
        BukkitBasics.gamemode.adventure: true
        BukkitBasics.gamemode.spectator: true
-       
+   
+   BukkitBasics.warp.basic:
+     description: Gives access to all warp commands
+     children:
+       BukkitBasics.warp: true
+       BukkitBasics.list: true
+   BukkitBasics.warp.admin:
+     description: Gives access to all warp admin commands
+     children:
+       BukkitBasics.setwarp: true
+       BukkitBasics.warp.others: true
+   
    # defaults
    BukkitBasics.spawn:
      description: Teleports you to spawn
@@ -119,7 +132,13 @@ permissions:
    BukkitBasics.coords:
      description: Shows your coordinates
      default: true
-   
+   BukkitBasics.warp:
+     description: Warps you
+     default: true
+   BukkitBasics.warp.list:
+     description: Displays the warps
+     default: true
+     
    #ops
    BukkitBasics.spawn.others:
      description: Teleports someone else to spawn
