@@ -34,7 +34,6 @@ public class DynamicCommands {
     	}
     	if (website_command_enable) {
     		commands.add(new DynamicCommandsExecutor("website").setUsage("/website").setPermissionMessage("BukkitBasics.custom.website").setPermissionMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.custom.website")));
-    		
     	}
     	
     	for (int i = 0; i != commands.size(); i++) {
