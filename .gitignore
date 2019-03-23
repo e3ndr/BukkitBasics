@@ -1,9 +1,8 @@
 
+target/*
+dependency-reduced-pom.xml
 .classpath
 .project
-*.prefs
-*.class
-*.lst
-target/maven-archiver/pom.properties
-target/classes/plugin.yml
-dependency-reduced-pom.xml
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.m2e.core.prefs
