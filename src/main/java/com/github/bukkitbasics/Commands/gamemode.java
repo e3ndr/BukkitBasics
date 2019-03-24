@@ -1,15 +1,19 @@
 package com.github.bukkitbasics.Commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import com.github.bukkitbasics.lang;
 
-public class gamemode implements CommandExecutor {
+public class gamemode implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -37,13 +41,17 @@ public class gamemode implements CommandExecutor {
 		
 		if (args.length != 0) {
 			if (sender.hasPermission("BukkitBasics.gamemode.others")) {
+				if (!sender.hasPermission("BukkitBasics.gamemode." + gamemode.toString().toLowerCase()) ) {
+					sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode.self"));
+					return true;
+				}
 				return gamemodeOthers(sender, gamemode, args[0]);
 			} else {
 				sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode.others"));
 				return false;
 			}
 		} else {
-			if (sender.hasPermission("BukkitBasics.gamemode.self")) {
+			if (sender.hasPermission("BukkitBasics.gamemode." + gamemode.toString().toLowerCase())) {
 				Player player = (Player) sender;
 				player.setGameMode(gamemode);
 				player.sendMessage(lang.get("gamemode.updated.0")
@@ -53,7 +61,7 @@ public class gamemode implements CommandExecutor {
 				return true;
 			} else {
 				sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode.self"));
-				return false;
+				return true;
 			}
 		}
 	}
@@ -133,6 +141,36 @@ public class gamemode implements CommandExecutor {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		
+		if (args.length > 2 || command.getName().equalsIgnoreCase("gms") || command.getName().equalsIgnoreCase("gmc") || command.getName().equalsIgnoreCase("gma") || command.getName().equalsIgnoreCase("gmsp")) {
+			ArrayList<String> empty = new ArrayList<String>();
+			empty.add("");
+			return empty;
+		}
+		if (args.length == 1) {
+			ArrayList<String> complete = new ArrayList<String>();
+			complete.add("0");
+			complete.add("1");
+			complete.add("2");
+			complete.add("3");
+			
+			complete.add("s");
+			complete.add("c");
+			complete.add("a");
+			complete.add("sp");
+			
+			complete.add("survival");
+			complete.add("creative");
+			complete.add("adventure");
+			complete.add("spectator");
+			
+			return complete;
+		}
+		return null;
 	}
 	
 }

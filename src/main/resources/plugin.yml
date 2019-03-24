@@ -1,9 +1,11 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 1.1.0
+version: 1.2.0
 description: A modern version of EssentialsX with more features and more bugs!
-author: e3nder on Github
+author: [e3ndr, XPulse developers on github]
 website: https://github.com/e3ndr/BukkitBasics
+api-version: 1.13
+softdepend: [Essentials]
 
 commands:
   # defaults
@@ -32,8 +34,6 @@ commands:
   setlang:
     description: Sets the value of the lang value you specify
     usage: /<command> <lang> <value>
-    permission: BukkitBasics.setlang
-    permission-message: You don't have <permission>!
   resetlang:
     description: Resets the lang file, irreversible.
     usage: /<command>

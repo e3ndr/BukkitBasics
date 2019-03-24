@@ -1,15 +1,19 @@
 package com.github.bukkitbasics.Commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import com.github.bukkitbasics.lang;
 import com.github.bukkitbasics.variables;
 
-public class setspawn implements CommandExecutor {
+public class setspawn implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -23,5 +27,12 @@ public class setspawn implements CommandExecutor {
 			sender.sendMessage("You must be in the overworld to set spawn!"); // TODO lang
 			return false;
 		}
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		ArrayList<String> empty = new ArrayList<String>();
+		empty.add("");
+		return empty;
 	}
 }

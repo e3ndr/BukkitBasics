@@ -25,6 +25,8 @@ public class PluginConfig {
 				case "console-color": variables.use_color = valueof.bool(data[i][1], true);
 				case "discord-command-enable": DynamicCommands.discord_command_enable = valueof.bool(data[i][1], false);
 				case "website-command-enable": DynamicCommands.website_command_enable = valueof.bool(data[i][1], false);
+				case "help-command-enable": DynamicCommands.help_command_enable = valueof.bool(data[i][1], false);
+				case "remove-book-recipe": variables.removeBookRecipe = valueof.bool(data[i][1], false);
 				
 			}
 		}
@@ -37,7 +39,10 @@ public class PluginConfig {
 				{"show-custom-join-message","false"},
 				{"console-color","true"},
 				{"discord-command-enable", "false"},
-				{"website-command-enable", "false"}
+				{"website-command-enable", "false"},
+				{"help-command-enable", "false"},
+				{"remove-book-recipe", "false"}
+				
 		};
 		DataBase db = new DataBase(configfile, data);
 		

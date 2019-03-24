@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=<path-to-file> -DgroupId=com.github.xcore -DartifactId=xcore -Dversion=1.1.0 -Dpackaging=jar

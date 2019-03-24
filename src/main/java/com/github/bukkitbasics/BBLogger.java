@@ -9,7 +9,7 @@ public class BBLogger {
 
 	public static void println(Object obj) {
 		String msg = String.valueOf(obj);
-		String prefix = "§8[§d" + instance.getName() + "§8]§r ";
+		String prefix = "§8[§dBukkitBasics§8]§r ";
 		if (!variables.use_color) {
 			msg = stripColor(msg);
 			prefix = stripColor(prefix);
@@ -43,8 +43,9 @@ public class BBLogger {
 			e.printStackTrace();
 		}
 	}
-	private static String stripColor(String msg) {
-		return msg.replace("§4", "")
+	public static String stripColor(String msg) {
+		return msg
+				.replace("§4", "")
 				.replace("§c", "")
 				.replace("§6", "")
 				.replace("§e", "")
@@ -67,4 +68,30 @@ public class BBLogger {
 				.replace("§m", "")
 				.replace("§r", "");
 	}
+	public static String transformColor(String msg) {
+		return msg
+				.replace("&4", "§4")
+				.replace("&c", "§c")
+				.replace("&6", "§6")
+				.replace("&e", "§e")
+				.replace("&2", "§2")
+				.replace("&a", "§a")
+				.replace("&b", "§b")
+				.replace("&3", "§3")
+				.replace("&1", "§1")
+				.replace("&9", "§9")
+				.replace("&d", "§d")
+				.replace("&5", "§5")
+				.replace("&f", "§f")
+				.replace("&7", "§7")
+				.replace("&8", "§8")
+				.replace("&0", "§0")
+				.replace("&l", "§l")
+				.replace("&n", "§n")
+				.replace("&o", "§o")
+				.replace("&k", "§k")
+				.replace("&m", "§m")
+				.replace("&r", "§r");
+	}
+	
 }

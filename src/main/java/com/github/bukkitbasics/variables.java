@@ -10,6 +10,8 @@ public class variables {
 	public static boolean customJoinMessage = false;
 	public static boolean debug_printstack = false;
 	public static boolean use_color = true;
+	public static String[] help_message = new String[0];
+	public static boolean removeBookRecipe = false;
 	
 	
 	

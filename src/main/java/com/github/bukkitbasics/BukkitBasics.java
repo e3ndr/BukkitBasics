@@ -1,5 +1,7 @@
 package com.github.bukkitbasics;
 
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,8 +38,20 @@ public final class BukkitBasics extends JavaPlugin {
 		BBLogger.println(("&dBukkitBasics &aversion " + this.getDescription().getVersion()).replace("&", "§"));
 		BBLogger.println(("\"&a" + this.getDescription().getDescription() + "&r\"").replace("&", "§"));
 		
-		DynamicCommands.init();
+		// Non reloadables
+		if (reload) {
+			BBLogger.println("§4 Currently §ccustom commands §4and §cbook and quill disabling §4is not supported by reloading. Restart the server to see changes take effect.");
+			reload = false;
+		} else {
+			try {
+				DynamicCommands.init();
+			} catch (IOException e) {
+				BBLogger.exception(e);
+			}
+			Recipes.init();
+		}
 		
+		// execution
 		this.getCommand("spawn").setExecutor(new spawn());
 		this.getCommand("setspawn").setExecutor(new setspawn());
 		this.getCommand("coords").setExecutor(new coords());
@@ -55,20 +69,32 @@ public final class BukkitBasics extends JavaPlugin {
 		this.getCommand("warp").setExecutor(new warp());
 		this.getCommand("setwarp").setExecutor(new setwarp());
 		
+		// tab completion
+		this.getCommand("spawn").setTabCompleter(new spawn());
+		this.getCommand("setspawn").setTabCompleter(new setspawn());
+		this.getCommand("coords").setTabCompleter(new coords());
+		this.getCommand("setlang").setTabCompleter(new setLang());
+		this.getCommand("resetlang").setTabCompleter(new resetLang());
+		this.getCommand("motd").setTabCompleter(new motd());
+		this.getCommand("bbdebug").setTabCompleter(new bbdebug());
+		this.getCommand("suicide").setTabCompleter(new suicide());
+		this.getCommand("gamemode").setTabCompleter(new gamemode());
+		this.getCommand("gms").setTabCompleter(new gamemode());
+		this.getCommand("gmc").setTabCompleter(new gamemode());
+		this.getCommand("gma").setTabCompleter(new gamemode());
+		this.getCommand("gmsp").setTabCompleter(new gamemode());
+		this.getCommand("fly").setTabCompleter(new fly());
+		this.getCommand("warp").setTabCompleter(new warp());
+		this.getCommand("setwarp").setTabCompleter(new setwarp());
 		
 	}
 
 	@Override
     public void onDisable() {
-		BBLogger.println("§4 Currently the reloading of custom commands is not supported. Restart the server to see changes take effect.");
 		instance = null;
-		DynamicCommands.clean();
-		
-		
-		
+
 		if (reload) {
 			Bukkit.getServer().getPluginManager().enablePlugin(this);
-			reload = false;
 		}
 	}
 	

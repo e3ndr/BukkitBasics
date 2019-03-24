@@ -64,7 +64,7 @@ public class lang {
 		
 		for (int i = 0; i != data.length; i++) {
 			if (data[i][0].equals(key)) {
-				return data[i][1].replace("\\&", "↔").replace("&", "§").replace("↔", "&");
+				return BBLogger.transformColor(data[i][1]);
 			}
 		}
 		

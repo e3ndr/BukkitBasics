@@ -1,44 +1,25 @@
 package com.github.bukkitbasics.Commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.command.TabCompleter;
 
-import com.github.bukkitbasics.BBLogger;
-import com.github.bukkitbasics.lang;
-
-public class setLang implements CommandExecutor {
+public class setLang implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (sender instanceof ConsoleCommandSender){	
-			lang.create();
-			return true;
-		} else {
-			if (!(args.length >= 2)) {
-				return false;
-			}
-			String value = "";
-			for (int i = 1; i != args.length; i++) {
-				value = value + args[i] + " ";
-			}
-			Player player = (Player) sender;
-			switch (args[0]) {
-				case "spawn.teleport": lang.setLang(args[0], value); break;
-				case "spawn.set": lang.setLang(args[0], value); break;
-				case "coords.0": lang.setLang(args[0], value); break;
-				case "coords.1": lang.setLang(args[0], value); break;
-				case "join": lang.setLang(args[0], value); break;
-				case "no.perm": lang.setLang(args[0], value); break;
-				
-				default: return false;
-			}
-			BBLogger.println(player.getName() + " set " + args[0] + " to " + value);
-			player.sendMessage("Set " + args[0] + " to " + value.replace("&", "§"));
-			return true;
-		}
+		sender.sendMessage("Please set a lang key via lang.txt in the plugin folder, sorry!");
+		return true;
 	}
 
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		ArrayList<String> empty = new ArrayList<String>();
+		empty.add("");
+		return empty;
+	}
 }

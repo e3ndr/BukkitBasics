@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 
+import com.github.bukkitbasics.BBLogger;
 import com.github.bukkitbasics.lang;
+import com.github.bukkitbasics.variables;
 
 public class DynamicCommandsExecutor extends BukkitCommand {
     public DynamicCommandsExecutor(String name) {
@@ -24,7 +26,15 @@ public class DynamicCommandsExecutor extends BukkitCommand {
     	} else if (alias.equals("website")) {
     		sender.sendMessage(lang.get("custom.website"));
     		return true;
+    	} else if (alias.equals("help")) {
+    		if (variables.help_message.length != 0) {
+	    		for (int i = 0; i != variables.help_message.length; i++) {
+	    			sender.sendMessage(BBLogger.transformColor(variables.help_message[i]));
+	    		}
+    		}
+    		return true;
     	}
+    	
 		return false;
     }
 }
