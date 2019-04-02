@@ -25,11 +25,10 @@ public class setwarp implements CommandExecutor, TabCompleter {
 				perm = args[1];
 			}
 			
-			// format is: x,y,z,world,pitch,yaw,perm,name
 			String[] data = {
-					String.valueOf(player.getLocation().getBlockX()), 
-					String.valueOf(player.getLocation().getBlockY()), 
-					String.valueOf(player.getLocation().getBlockZ()), 
+					String.valueOf(player.getLocation().getX()), 
+					String.valueOf(player.getLocation().getY()), 
+					String.valueOf(player.getLocation().getZ()), 
 					player.getLocation().getWorld().getName(), 
 					String.valueOf(player.getLocation().getPitch()), 
 					String.valueOf(player.getLocation().getYaw()),

@@ -31,6 +31,7 @@ public class PluginConfig {
 				case "dynamic-ping-motd": variables.dynamicPingMotd = valueof.bool(data[i][1], false);
 				case "broadcast-silent-events-to-admins": variables.silentBroadcasts = valueof.bool(data[i][1], false);
 				case "silent-events-enabled": variables.silentEventsEnable = valueof.bool(data[i][1], false);
+				case "use-respawn-handler": variables.useRespawnHandler = valueof.bool(data[i][1], true);
 				
 			}
 		}
@@ -49,7 +50,8 @@ public class PluginConfig {
 				{"remove-book-recipe", "false"},
 				{"dynamic-ping-motd", "false"},
 				{"broadcast-silent-events-to-admins", "true"},
-				{"silent-events-enabled", "true"}
+				{"silent-events-enabled", "true"},
+				{"use-respawn-handler", "true"}
 				
 		};
 		DataBase db = new DataBase(configfile, data);

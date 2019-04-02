@@ -17,8 +17,9 @@ public class WarpDatabase {
 		update();
 	}
 	public static String[] get(String key) {
+		key = key.toLowerCase();
 		if (!yml.contains(key)) {
-			return null;
+			return new String[0];
 		}
 		String[] data = {
 				(String) yml.get(key + ".x"),
@@ -84,15 +85,17 @@ public class WarpDatabase {
 				default: return "Char " + key.charAt(i) + " (" + i + ") invalid";
 			}
 		}
-		yml.createSection(BBLogger.stripColor(key));
-		yml.set(BBLogger.stripColor(key) + ".x", data[0]);
-		yml.set(BBLogger.stripColor(key) + ".y", data[1]);
-		yml.set(BBLogger.stripColor(key) + ".z", data[2]);
-		yml.set(BBLogger.stripColor(key) + ".world", data[3]);
-		yml.set(BBLogger.stripColor(key) + ".pitch", data[4]);
-		yml.set(BBLogger.stripColor(key) + ".yaw", data[5]);
-		yml.set(BBLogger.stripColor(key) + ".perm", data[6]);
-		yml.set(BBLogger.stripColor(key) + ".stylized_name", key);
+		String name = key;
+		key = BBLogger.stripColor(key.toLowerCase());
+		yml.createSection(key);
+		yml.set(key + ".x", data[0]);
+		yml.set(key + ".y", data[1]);
+		yml.set(key + ".z", data[2]);
+		yml.set(key + ".world", data[3]);
+		yml.set(key + ".pitch", data[4]);
+		yml.set(key + ".yaw", data[5]);
+		yml.set(key + ".perm", data[6]);
+		yml.set(key + ".stylized_name", name);
 		update();
 		return "";
 	}

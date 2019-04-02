@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.variables;
+import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Config.lang;
 
 public class setspawn implements CommandExecutor, TabCompleter {
@@ -18,13 +18,23 @@ public class setspawn implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player player = (Player) sender;
-		if (player.getWorld().getName() == variables.main_world_name) {
-			Bukkit.getWorld(variables.main_world_name).setSpawnLocation(player.getLocation());
-			String location = (int) player.getLocation().getX() + ", " + (int) player.getLocation().getY() + ", " + (int) player.getLocation().getZ();
+		if (sender.hasPermission("BukkitBasics.spawn.set")) {
+			Bukkit.getWorld(player.getLocation().getWorld().getName()).setSpawnLocation(player.getLocation());
 			player.sendMessage(lang.get("spawn.set"));
+			String[] data = {
+					String.valueOf(player.getLocation().getX()), 
+					String.valueOf(player.getLocation().getY()), 
+					String.valueOf(player.getLocation().getZ()), 
+					player.getLocation().getWorld().getName(), 
+					String.valueOf(player.getLocation().getPitch()), 
+					String.valueOf(player.getLocation().getYaw()),
+					"null",
+					"spawn"
+			};
+			WarpDatabase.add("spawn", data);
 			return true;
 		} else {
-			sender.sendMessage("You must be in the overworld to set spawn!"); // TODO lang
+			sender.sendMessage(lang.get("warp.no_perm").replace("$permission", "BukkitBasics.spawn.set")); // TODO lang
 			return false;
 		}
 	}

@@ -1,6 +1,6 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 1.5.0
+version: 1.5.1
 description: A modern version of EssentialsX with more features and more bugs!
 author: [e3ndr, XPulse developers on github]
 website: https://github.com/e3ndr/BukkitBasics
@@ -42,8 +42,6 @@ commands:
   setspawn:
     description: Sets the world spawn
     usage: /<command>
-    permission: BukkitBasics.setspawn
-    permission-message: You don't have <permission>!
   bbdebug:
     description: Shows variables used by the server
     usage: /<command> <key> <value>

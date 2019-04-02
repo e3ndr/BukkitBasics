@@ -46,7 +46,7 @@ public class warp implements CommandExecutor, TabCompleter {
 		
 		String[] data = WarpDatabase.get(args[0]);
 		
-		if (data.equals(null)) {
+		if (data.length == 0) {
 			sender.sendMessage(lang.get("warp.not_found"));
 			return true;
 		}
@@ -69,13 +69,13 @@ public class warp implements CommandExecutor, TabCompleter {
     	if (args.length < 2) {
     		player = (Player) sender;
     		if (sender.hasPermission(perm) || (perm.equals("perm") || perm.equals("null"))) {
-    			player.sendMessage(lang.get("warp.self").replace("$warp", warpName));
+    			player.sendMessage(lang.get("warp.self").replace("$warp", BBLogger.transformColor(warpName)));
     		} else {
     			player.sendMessage(lang.get("warp.no_perm").replace("$permission", perm));
     		}
     	} else {
     		player = Bukkit.getPlayer(args[1]);
-	    	player.sendMessage(lang.get("warp.others").replace("$warp", warpName).replace("$player", sender.getName()));
+	    	player.sendMessage(lang.get("warp.others").replace("$warp", BBLogger.transformColor(warpName)).replace("$player", sender.getName()));
     	}
 		
     	player.teleport(loc);

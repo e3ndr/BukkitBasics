@@ -28,7 +28,7 @@ public class lang {
 			{"_comment0", "The Character \"&\" will be replaced by § when executed, \\& will not be replaced."},
 			{"lang.update", "&8[&4Server&8]&r updated lang $lang to $key"},
 			{"spawn.teleport", "&8[&4Server&8]&r Teleported you to spawn"},
-			{"spawn.set", "&8[&4Server&8]&r Set world spawn to &7$location"},
+			{"spawn.set", "&8[&4Server&8]&r Spawn set!"},
 			{"coords.0", "&8[&4Server&8]&r You are at: &7$location"},
 			{"coords.1", "&8[&4Server&8]&r With a pitch of: &7$pitch &rand a yaw of: &7$yaw"},
 			{"join.message", "&e$player joined the game"},

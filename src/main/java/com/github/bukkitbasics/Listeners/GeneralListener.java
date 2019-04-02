@@ -3,13 +3,16 @@ package com.github.bukkitbasics.Listeners;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.github.bukkitbasics.variables;
+import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Config.lang;
 import com.github.bukkitbasics.Util.BBLogger;
 
@@ -60,5 +63,29 @@ public class GeneralListener implements Listener {
 			}
 		}
 
+	}
+	@EventHandler
+    public void onRespawn(final PlayerRespawnEvent event) {
+		if (variables.useRespawnHandler) {
+			String[] data = WarpDatabase.get("spawn");
+			Location loc;
+			if (data.length == 0) {
+		    	Location pos = Bukkit.getServer().getWorld(variables.main_world_name).getSpawnLocation();
+		    	loc = new Location(Bukkit.getWorld(variables.main_world_name), pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
+		    	BBLogger.println("Could not find spawn warp information (Required for \'/spawn\') Please run \'/setspawn\' to create it. To make \'/warp spawn\' inaccessible set it to a permission that nobody has.");
+			} else {
+				double x = Double.valueOf(data[0]);
+				double y = Double.valueOf(data[1]);
+				double z = Double.valueOf(data[2]);
+				String world = data[3];
+				double pitch = Double.valueOf(data[4]);
+				double yaw = Double.valueOf(data[5]);
+				
+				loc = new Location(Bukkit.getWorld(world), x, y, z);
+				loc.setPitch((float) pitch);
+				loc.setYaw((float) yaw);
+			}
+			event.setRespawnLocation(loc);
+		}
 	}
 }

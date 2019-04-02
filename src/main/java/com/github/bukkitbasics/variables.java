@@ -14,6 +14,7 @@ public class variables {
 	public static boolean dynamicPingMotd = false;
 	public static boolean silentBroadcasts = true;
 	public static boolean silentEventsEnable = true;
+	public static boolean useRespawnHandler = true;
 	
 	
 	
