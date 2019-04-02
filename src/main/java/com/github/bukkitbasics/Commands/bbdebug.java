@@ -11,10 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 
-import com.github.bukkitbasics.BBLogger;
 import com.github.bukkitbasics.BukkitBasics;
-import com.github.bukkitbasics.lang;
 import com.github.bukkitbasics.variables;
+import com.github.bukkitbasics.Config.lang;
+import com.github.bukkitbasics.Util.BBLogger;
 import com.github.xcore.Util.valueof;
 
 public class bbdebug implements CommandExecutor, TabCompleter {
@@ -37,11 +37,17 @@ public class bbdebug implements CommandExecutor, TabCompleter {
 					return true;
 				}
 			}
+			if (args[0].equals("reload")) {
+				switch (args[1]) {
+					case "plugin": if (sender instanceof ConsoleCommandSender) { sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Reloading!"); } else { sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Reloading!"); BBLogger.println("Reloading! (§7" + sender.getName() + "§r)");} BukkitBasics.reload = true; Bukkit.getServer().getPluginManager().disablePlugin(BukkitBasics.instance); return true;
+					case "lang": sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Reloading language data!"); lang.init(); return true;
+					
+				}
+			}
 		}
 		if (args.length == 1) {
 			switch (args[0]) {
-			case "throw": sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Throwing an error"); try { throw new IOException("test"); } catch (IOException e) { BBLogger.exception(e); } sender.sendMessage(lang.get("internal.error")); return true;
-			case "reload": if (sender instanceof ConsoleCommandSender) { sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Reloading!"); } else { sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Reloading!"); BBLogger.println("Reloading! (§7" + sender.getName() + "§r)");} BukkitBasics.reload = true; Bukkit.getServer().getPluginManager().disablePlugin(BukkitBasics.instance); return true;
+				case "throw": sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r Throwing an error"); try { throw new IOException("test"); } catch (IOException e) { BBLogger.exception(e); } sender.sendMessage(lang.get("internal.error")); return true;
 			}
 		}
 		// sender.sendMessage("§8[§4BUKKIT BASICS DEBUG§8]§r");
@@ -62,10 +68,17 @@ public class bbdebug implements CommandExecutor, TabCompleter {
 			complete.add("reload");
 			return complete;
 		}
-		if (args.length == 2 && args[0] == "stacktrace") {
+		if (args.length == 1 && args[0] == "stacktrace") {
 			ArrayList<String> complete = new ArrayList<String>();
 			complete.add("true");
 			complete.add("false");
+			return complete;
+		}
+		if (args.length == 1 && args[0] == "reload") {
+			ArrayList<String> complete = new ArrayList<String>();
+			complete.add("motd");
+			complete.add("plugin");
+			complete.add("lang");
 			return complete;
 		}
 		return null;

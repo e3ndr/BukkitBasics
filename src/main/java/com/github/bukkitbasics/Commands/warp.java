@@ -13,11 +13,12 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.lang;
 import com.github.bukkitbasics.Config.WarpDatabase;
+import com.github.bukkitbasics.Config.lang;
 
 public class warp implements CommandExecutor, TabCompleter {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName() == "warps" || args.length == 0 && sender.hasPermission("BukkitBasics.warp.list")) {
@@ -58,7 +59,9 @@ public class warp implements CommandExecutor, TabCompleter {
 		int y = 0; // TODO prevent malformed String data
 		int z = 0; // TODO prevent malformed String data
 		String world = ""; // TODO prevent malformed String data
+		@SuppressWarnings("unused")
 		Float pitch = 0f; // TODO prevent malformed String data
+		@SuppressWarnings("unused")
 		Float yaw = 0f; // TODO prevent malformed String data
 		String perm = ""; // TODO prevent malformed String data
 		String warpName = ""; // TODO prevent malformed String data

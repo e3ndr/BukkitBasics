@@ -9,8 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import com.github.bukkitbasics.BBLogger;
 import com.github.bukkitbasics.variables;
+import com.github.bukkitbasics.Config.lang;
 
 public class motd implements CommandExecutor, TabCompleter {
 
@@ -21,8 +21,8 @@ public class motd implements CommandExecutor, TabCompleter {
 				sender.sendMessage(Bukkit.getServer().getMotd());
 				return true;
 			} else {
-				sender.sendMessage(BBLogger.transformColor(variables.motd.replace("$player", sender.getName())));
-				return true;
+				sender.sendMessage(lang.get("custom.motd").replace("$player", sender.getName()).replace("$online", "" + Bukkit.getServer().getOnlinePlayers().size()).replace("$line", "\n").replace("\\n", "\n"));
+	    		return true;
 			}
 		}
 		return false;

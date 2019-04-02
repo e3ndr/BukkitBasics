@@ -19,7 +19,10 @@ import com.github.bukkitbasics.Commands.suicide;
 import com.github.bukkitbasics.Commands.warp;
 import com.github.bukkitbasics.Config.PluginConfig;
 import com.github.bukkitbasics.Config.WarpDatabase;
-import com.github.bukkitbasics.Listeners.LoginListener;
+import com.github.bukkitbasics.Config.lang;
+import com.github.bukkitbasics.Listeners.DynamicServerMotd;
+import com.github.bukkitbasics.Listeners.GeneralListener;
+import com.github.bukkitbasics.Util.BBLogger;
 
 public final class BukkitBasics extends JavaPlugin {
 	public static BukkitBasics instance;
@@ -29,11 +32,11 @@ public final class BukkitBasics extends JavaPlugin {
     public void onEnable() {
 		instance = this;
 		variables.setVars();
-		BBLogger.instance(instance);
 		WarpDatabase.init();
 		lang.init();
 		PluginConfig.init();
-		getServer().getPluginManager().registerEvents(new LoginListener(), this);
+		getServer().getPluginManager().registerEvents(new GeneralListener(), this);
+		getServer().getPluginManager().registerEvents(new DynamicServerMotd(), this);
 		
 		BBLogger.println(("&dBukkitBasics &aversion " + this.getDescription().getVersion()).replace("&", "§"));
 		BBLogger.println(("\"&a" + this.getDescription().getDescription() + "&r\"").replace("&", "§"));

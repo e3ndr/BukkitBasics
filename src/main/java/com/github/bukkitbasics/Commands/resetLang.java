@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 
-import com.github.bukkitbasics.lang;
+import com.github.bukkitbasics.Config.lang;
 
 public class resetLang implements CommandExecutor, TabCompleter {
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import com.github.bukkitbasics.BBLogger;
+import com.github.bukkitbasics.Util.BBLogger;
 
 public class WarpDatabase {
 	public static File warps;

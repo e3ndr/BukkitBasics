@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.lang;
+import com.github.bukkitbasics.Config.lang;
 
 public class gamemode implements CommandExecutor, TabCompleter {
 
@@ -42,7 +42,7 @@ public class gamemode implements CommandExecutor, TabCompleter {
 		if (args.length != 0) {
 			if (sender.hasPermission("BukkitBasics.gamemode.others")) {
 				if (!sender.hasPermission("BukkitBasics.gamemode." + gamemode.toString().toLowerCase()) ) {
-					sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode.self"));
+					sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode" + gamemode.toString().toLowerCase()));
 					return true;
 				}
 				return gamemodeOthers(sender, gamemode, args[0]);
@@ -60,7 +60,7 @@ public class gamemode implements CommandExecutor, TabCompleter {
 						);
 				return true;
 			} else {
-				sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode.self"));
+				sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.gamemode" + gamemode.toString().toLowerCase()));
 				return true;
 			}
 		}

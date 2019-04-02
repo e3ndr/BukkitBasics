@@ -1,10 +1,12 @@
-package com.github.bukkitbasics;
+package com.github.bukkitbasics.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
+import com.github.bukkitbasics.BukkitBasics;
+import com.github.bukkitbasics.variables;
+
 public class BBLogger {
-	private static BukkitBasics instance;
 	private static boolean testmode = false;
 
 	public static void println(Object obj) {
@@ -20,11 +22,6 @@ public class BBLogger {
 			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 			console.sendMessage(prefix + msg);
 		}
-	}
-	
-	public static void instance(BukkitBasics inst) {
-		instance = inst;
-		return;
 	}
 	
 	public static void testmode(boolean b) {

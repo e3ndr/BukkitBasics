@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.lang;
 import com.github.bukkitbasics.Config.WarpDatabase;
+import com.github.bukkitbasics.Config.lang;
 
 public class setwarp implements CommandExecutor, TabCompleter {
 

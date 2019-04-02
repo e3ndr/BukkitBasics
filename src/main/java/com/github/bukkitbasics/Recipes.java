@@ -6,8 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 
+import com.github.bukkitbasics.Util.BBLogger;
+
 public class Recipes {
 
+	@SuppressWarnings("deprecation")
 	public static void init() {
 		if (variables.removeBookRecipe) {
 			Iterator<Recipe> it = Bukkit.getServer().recipeIterator();

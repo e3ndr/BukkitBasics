@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.github.bukkitbasics.lang;
+import com.github.bukkitbasics.Config.lang;
 
 public class fly implements CommandExecutor, TabCompleter {
 
@@ -39,10 +39,10 @@ public class fly implements CommandExecutor, TabCompleter {
 				player.setAllowFlight(!player.getAllowFlight());
 				player.sendMessage(lang.get("fly.others.1")
 						.replace("$player", sender.getName())
-						.replace("$mode", "" + player.getAllowFlight())
+						.replace("$boolean", "" + player.getAllowFlight())
 						);
 				sender.sendMessage(lang.get("fly.others.0")
-						.replace("$player", sender.getName())
+						.replace("$player", player.getName())
 						.replace("$boolean", "" + player.getAllowFlight())
 						);
 				return true;
