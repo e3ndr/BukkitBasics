@@ -46,7 +46,6 @@ public class lang {
 			{"warp.others", "&8[&4Server&8]&r $player warped you to $warp"},
 			{"warp.self", "&8[&4Server&8]&r Warped you to $warp"},
 			{"warp.list", "&8[&4Server&8]&r Warps: $list"},
-			{"warp.none", "&8[&4Server&8]&r There are no warps available."},
 			{"warp.no_perm", "&8[&4Server&8]&r Sorry, but you do not have permission &7$permission &rthat is required to warp here"},
 			{"warp.not_found", "&8[&4Server&8]&r Warp not found!"},
 			{"internal.error","&8[&4Server&8]&r An error internal occured, notify a staff member"},

@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 
 import com.github.bukkitbasics.Config.WarpDatabase;
 import com.github.bukkitbasics.Config.lang;
+import com.github.bukkitbasics.Util.BBLogger;
 
 public class warp implements CommandExecutor, TabCompleter {
 
@@ -22,7 +23,7 @@ public class warp implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName() == "warps" || args.length == 0 && sender.hasPermission("BukkitBasics.warp.list")) {
-			sender.sendMessage(lang.get("warp.list").replace("$list", WarpDatabase.get("@").substring(1)));
+			sender.sendMessage(lang.get("warp.list").replace("$list", WarpDatabase.list()));
 			return true;
 		} else if ((command.getName() == "warps" || args.length == 0) && !(sender.hasPermission("BukkitBasics.warp.list"))) {
 			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.warp.list"));
@@ -43,45 +44,26 @@ public class warp implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		
-		String data = WarpDatabase.get(args[0]);
+		String[] data = WarpDatabase.get(args[0]);
 		
-		if (data == "_no warps available") {
-			sender.sendMessage(lang.get("warp.none"));
-			return true;
-		}
-		if (data.substring(0, 1) == "_") {
+		if (data.equals(null)) {
 			sender.sendMessage(lang.get("warp.not_found"));
 			return true;
 		}
 		
-		// format is: x,y,z,world,pitch,yaw,perm,name
-		int x = 0; // TODO prevent malformed String data
-		int y = 0; // TODO prevent malformed String data
-		int z = 0; // TODO prevent malformed String data
-		String world = ""; // TODO prevent malformed String data
-		@SuppressWarnings("unused")
-		Float pitch = 0f; // TODO prevent malformed String data
-		@SuppressWarnings("unused")
-		Float yaw = 0f; // TODO prevent malformed String data
-		String perm = ""; // TODO prevent malformed String data
-		String warpName = ""; // TODO prevent malformed String data
+		double x = Double.valueOf(data[0]);
+		double y = Double.valueOf(data[1]);
+		double z = Double.valueOf(data[2]);
+		String world = data[3];
+		double pitch = Double.valueOf(data[4]);
+		double yaw = Double.valueOf(data[5]);
+		String perm = data[6];
+		String warpName = data[7];
 		
-		x = Integer.valueOf(data.substring(0, data.indexOf(",")));
-		data = data.substring(data.indexOf(",") + 1);
-		y = Integer.valueOf(data.substring(0, data.indexOf(",")));
-		data = data.substring(data.indexOf(",") + 1);
-		z = Integer.valueOf(data.substring(0, data.indexOf(",")));
-		data = data.substring(data.indexOf(",") + 1);
-		world = data.substring(0, data.indexOf(","));
-		data = data.substring(data.indexOf(",") + 1);
-		pitch = Float.valueOf(data.substring(0, data.indexOf(",")));
-		data = data.substring(data.indexOf(",") + 1);
-		yaw = Float.valueOf(data.substring(0, data.indexOf(",")));
-		data = data.substring(data.indexOf(",") + 1);
-		perm = data.substring(0, data.indexOf(","));
-		data = data.substring(data.indexOf(",") + 1);
-		warpName = data.replace("&", "§");
-		Location loc = new Location(Bukkit.getWorld(world), x, y, z); // TODO yaw & pitch
+		Location loc = new Location(Bukkit.getWorld(world), x, y, z);
+		loc.setPitch((float) pitch);
+		loc.setYaw((float) yaw);
+		
     	Player player;
     	
     	if (args.length < 2) {
@@ -104,7 +86,7 @@ public class warp implements CommandExecutor, TabCompleter {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		if (args.length == 1) {
-			return Arrays.asList(WarpDatabase.get("@").substring(1).replace("§r", "").split(", "));
+			return Arrays.asList(BBLogger.stripColor(WarpDatabase.list()).split(", "));
 		}
 		if (args.length > 2) {
 			ArrayList<String> empty = new ArrayList<String>();

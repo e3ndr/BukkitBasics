@@ -26,16 +26,17 @@ public class setwarp implements CommandExecutor, TabCompleter {
 			}
 			
 			// format is: x,y,z,world,pitch,yaw,perm,name
-			String result = WarpDatabase.add(args[0], 
-					player.getLocation().getBlockX() + "," + 
-					player.getLocation().getBlockY() + "," + 
-					player.getLocation().getBlockZ() + "," + 
-					player.getLocation().getWorld().getName() + "," + 
-					player.getLocation().getPitch() + "," + 
-					player.getLocation().getYaw() + "," + 
-					perm + "," +
+			String[] data = {
+					String.valueOf(player.getLocation().getBlockX()), 
+					String.valueOf(player.getLocation().getBlockY()), 
+					String.valueOf(player.getLocation().getBlockZ()), 
+					player.getLocation().getWorld().getName(), 
+					String.valueOf(player.getLocation().getPitch()), 
+					String.valueOf(player.getLocation().getYaw()),
+					perm,
 					args[0]
-					);
+			};
+			String result = WarpDatabase.add(args[0], data);
 			if (result.equals("")) {
 				sender.sendMessage(lang.get("warp.set").replace("$warp", args[0]));
 				return true;

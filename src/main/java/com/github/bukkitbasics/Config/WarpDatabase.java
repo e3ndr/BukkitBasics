@@ -1,78 +1,45 @@
 package com.github.bukkitbasics.Config;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.Set;
+
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.github.bukkitbasics.Util.BBLogger;
 
 public class WarpDatabase {
 	public static File warps;
-	public static ArrayList<String> data = new ArrayList<String>();
-	
+	public static YamlConfiguration yml;
 	public static void init() {
-		warps = new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/warps.txt");
-		if (!warps.exists()) {
-			BBLogger.println("Making Warp Database");
-			new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/").mkdir();
-	        try {
-				warps.createNewFile();
-				PrintWriter pw = new PrintWriter(warps);
-				pw.write("");
-		        pw.flush();
-		        pw.close();
-			} catch (IOException e) {
-				BBLogger.exception(e);
-			}
-		}
+		warps = new File(System.getProperty("user.dir") + "/plugins/BukkitBasics/warps.yml");
+		yml = YamlConfiguration.loadConfiguration(warps);
 		update();
 	}
-	private static ArrayList<String> warpsRaw = new ArrayList<String>();
-	public static String get(String key) {
-		if (warpsRaw.get(0) == null) {
-        	return "_no warps available";
-        }
-        
-        String warpList = "_";
-        for (int i = 0; i != warpsRaw.size(); i++) {
-        	String databaseLine = warpsRaw.get(i);
-        	if (databaseLine == "" || databaseLine == null) {
-        		continue;
-        	}
-        	if (databaseLine.length() > key.length() && databaseLine.substring(0, databaseLine.indexOf(":")).replace("&", "§").equals(key)) {
-        		return databaseLine.substring(key.length() + 1);
-        	}
-        	warpList = warpList + databaseLine.substring(0, databaseLine.indexOf(":")) + "§r, ";
-        }
-        
-		return warpList.substring(0, warpList.length() - 2).replace("&", "§");
+	public static String[] get(String key) {
+		if (!yml.contains(key)) {
+			return null;
+		}
+		String[] data = {
+				(String) yml.get(key + ".x"),
+				(String) yml.get(key + ".y"),
+				(String) yml.get(key + ".z"),
+				(String) yml.get(key + ".world"),
+				(String) yml.get(key + ".pitch"),
+				(String) yml.get(key + ".yaw"),
+				(String) yml.get(key + ".perm"),
+				(String) yml.get(key + ".stylized_name")
+		};
+		return data;
 	}
 	public static void update() {
-		File file = warps;
 		try {
-			FileReader fr = new FileReader(file);
-	        BufferedReader br = new BufferedReader(fr);
-	
-	        // If we skipped this it would read lines incorrectly.
-	        String line = null;
-	        while ((line = br.readLine()) != null) {
-	        	if (!line.equals(null) || !line.substring(0, 1).equals("#")) {
-	            	warpsRaw.add(line);
-	        	}
-	        }
-	        
-	        br.close();
+			yml.save(warps);
 		} catch (IOException e) {
-			// Literally love this song idk why pls help https://www.youtube.com/watch?v=gBRi6aZJGj4
-			e.printStackTrace();
+			BBLogger.exception(e);
 		}
 	}
-	public static String add(String key, String data) {
+	public static String add(String key, String[] data) {
 		for (int i = 0; i != key.length(); i++) {
 			switch (key.charAt(i)) {
 				case 'a': continue;
@@ -117,18 +84,25 @@ public class WarpDatabase {
 				default: return "Char " + key.charAt(i) + " (" + i + ") invalid";
 			}
 		}
-		PrintWriter pw = null;
-		try {
-			pw = new PrintWriter(new BufferedWriter(new FileWriter(warps, true)));
-		} catch (IOException e) {
-			BBLogger.exception(e);
+		yml.createSection(BBLogger.stripColor(key));
+		yml.set(BBLogger.stripColor(key) + ".x", data[0]);
+		yml.set(BBLogger.stripColor(key) + ".y", data[1]);
+		yml.set(BBLogger.stripColor(key) + ".z", data[2]);
+		yml.set(BBLogger.stripColor(key) + ".world", data[3]);
+		yml.set(BBLogger.stripColor(key) + ".pitch", data[4]);
+		yml.set(BBLogger.stripColor(key) + ".yaw", data[5]);
+		yml.set(BBLogger.stripColor(key) + ".perm", data[6]);
+		yml.set(BBLogger.stripColor(key) + ".stylized_name", key);
+		update();
+		return "";
+	}
+	public static String list() {
+		Set<String> list = yml.getRoot().getKeys(false);
+		String strList = "";
+		for (String str : list) {
+			strList = strList + "§r, " + str;
 		}
-		pw.println(key + ":" + data);
-        pw.flush();
-        pw.close();
-        
-        update();
-        
-        return "";
+		
+		return strList.substring(4);
 	}
 }

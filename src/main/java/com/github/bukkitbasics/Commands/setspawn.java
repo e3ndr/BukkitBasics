@@ -21,7 +21,7 @@ public class setspawn implements CommandExecutor, TabCompleter {
 		if (player.getWorld().getName() == variables.main_world_name) {
 			Bukkit.getWorld(variables.main_world_name).setSpawnLocation(player.getLocation());
 			String location = (int) player.getLocation().getX() + ", " + (int) player.getLocation().getY() + ", " + (int) player.getLocation().getZ();
-			player.sendMessage(lang.get("spawn.set").replace("$location", location));
+			player.sendMessage(lang.get("spawn.set"));
 			return true;
 		} else {
 			sender.sendMessage("You must be in the overworld to set spawn!"); // TODO lang
