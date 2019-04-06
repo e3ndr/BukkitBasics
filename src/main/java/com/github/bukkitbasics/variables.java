@@ -16,7 +16,9 @@ public class variables {
 	public static boolean silentEventsEnable = true;
 	public static boolean useRespawnHandler = true;
 	
-	
+	// soft depend
+	public static boolean factionsPresent = false;
+	public static boolean griefpreventionPresent = false;
 	
 	public static void setVars() {
 		 main_world_name = Bukkit.getWorlds().get(0).getName();

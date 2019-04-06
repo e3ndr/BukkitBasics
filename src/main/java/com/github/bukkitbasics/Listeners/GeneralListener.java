@@ -67,7 +67,7 @@ public class GeneralListener implements Listener {
 	@EventHandler
     public void onRespawn(final PlayerRespawnEvent event) {
 		if (variables.useRespawnHandler) {
-			String[] data = WarpDatabase.get("spawn");
+			String[] data = WarpDatabase.get("spawn", event.getPlayer());
 			Location loc;
 			if (data.length == 0) {
 		    	Location pos = Bukkit.getServer().getWorld(variables.main_world_name).getSpawnLocation();

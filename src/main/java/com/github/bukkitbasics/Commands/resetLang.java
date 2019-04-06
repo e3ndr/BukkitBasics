@@ -19,8 +19,8 @@ public class resetLang implements CommandExecutor, TabCompleter {
 			lang.create();
 			return true;
 		} else {
-			sender.sendMessage("This command can only be run by console.");
-			return false;
+			sender.sendMessage(lang.get("error.console-only"));
+			return true;
 		}
 	}
 

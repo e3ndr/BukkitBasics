@@ -1,11 +1,11 @@
 name: BukkitBasics
 main: com.github.bukkitbasics.BukkitBasics
-version: 1.5.1
+version: 1.6.0
 description: A modern version of EssentialsX with more features and more bugs!
 author: [e3ndr, XPulse developers on github]
 website: https://github.com/e3ndr/BukkitBasics
 api-version: 1.13
-softdepend: [Essentials]
+softdepend: [Essentials, Factions, GriefPrevention]
 
 commands:
   # defaults
@@ -29,6 +29,14 @@ commands:
     description: Teleports you to a specified warp
     aliases: [pwarp, tpme, warps]
     usage: /<command> <warp> [player]
+  home:
+    description: Teleports you to your home
+    aliases: [homes]
+    usage: /<command> <home> [player]
+  sethome:
+    description: Teleports you to your home
+    aliases: [delhome]
+    usage: /<command> <home> [player]
   
   # ops
   setlang:

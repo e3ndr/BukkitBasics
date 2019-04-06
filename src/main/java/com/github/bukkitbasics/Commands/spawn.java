@@ -30,7 +30,7 @@ public class spawn implements CommandExecutor, TabCompleter {
     		return true;
     	}
     	
-    	String[] data = WarpDatabase.get("spawn");
+    	String[] data = WarpDatabase.get("spawn", (Player) sender);
 		Location loc;
 		if (data.length == 0) {
 	    	Location pos = Bukkit.getServer().getWorld(variables.main_world_name).getSpawnLocation();

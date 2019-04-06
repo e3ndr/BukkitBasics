@@ -3,10 +3,17 @@ package com.github.bukkitbasics.Config;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
+import com.github.bukkitbasics.variables;
 import com.github.bukkitbasics.Util.BBLogger;
+import com.massivecraft.factions.FPlayer;
+import com.massivecraft.factions.FPlayers;
 
 public class WarpDatabase {
 	public static File warps;
@@ -16,8 +23,27 @@ public class WarpDatabase {
 		yml = YamlConfiguration.loadConfiguration(warps);
 		update();
 	}
-	public static String[] get(String key) {
+	public static String[] get(String key, Player player) {
 		key = key.toLowerCase();
+		
+		// soft depends
+		if (key.equalsIgnoreCase("faction") && variables.factionsPresent && player != null) {
+			FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
+			Location loc = fPlayer.getFaction().getHome();
+			
+			String[] data = {
+					String.valueOf(loc.getX()),
+					String.valueOf(loc.getY()),
+					String.valueOf(loc.getZ()),
+					String.valueOf(loc.getWorld()),
+					String.valueOf(loc.getPitch()),
+					String.valueOf(loc.getYaw()),
+					"BukkitBasics.integration.faction.warp",
+					"Faction"
+			};
+			return data;
+		}
+		
 		if (!yml.contains(key)) {
 			return new String[0];
 		}
@@ -105,7 +131,9 @@ public class WarpDatabase {
 		for (String str : list) {
 			strList = strList + "§r, " + str;
 		}
-		
+		if (strList.length() == 0) {
+			return "";
+		}
 		return strList.substring(4);
 	}
 }

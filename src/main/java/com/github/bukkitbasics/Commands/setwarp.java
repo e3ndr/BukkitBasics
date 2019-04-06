@@ -40,7 +40,7 @@ public class setwarp implements CommandExecutor, TabCompleter {
 				sender.sendMessage(lang.get("warp.set").replace("$warp", args[0]));
 				return true;
 			} else {
-				sender.sendMessage(lang.get("error.syntax"));
+				sender.sendMessage(lang.get("error.must-be-alphanumerical-including-&_").replace("$name", "Warp"));
 				return false;
 			}
 		} else if (!sender.hasPermission("BukkitBasics.warp.set")) {

@@ -3,15 +3,18 @@ package com.github.bukkitbasics;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.bukkitbasics.Commands.bbdebug;
 import com.github.bukkitbasics.Commands.coords;
 import com.github.bukkitbasics.Commands.fly;
 import com.github.bukkitbasics.Commands.gamemode;
+import com.github.bukkitbasics.Commands.home;
 import com.github.bukkitbasics.Commands.motd;
 import com.github.bukkitbasics.Commands.resetLang;
 import com.github.bukkitbasics.Commands.setLang;
+import com.github.bukkitbasics.Commands.sethome;
 import com.github.bukkitbasics.Commands.setspawn;
 import com.github.bukkitbasics.Commands.setwarp;
 import com.github.bukkitbasics.Commands.spawn;
@@ -54,6 +57,18 @@ public final class BukkitBasics extends JavaPlugin {
 			Recipes.init();
 		}
 		
+		// Soft dependencies
+		Plugin[] plugins = getServer().getPluginManager().getPlugins();
+		for (Plugin plugin : plugins) {
+			switch (plugin.getName()) {
+				case "Factions": variables.factionsPresent = true; BBLogger.println("Factions found! Integrating!"); continue;
+				case "GriefPrevention": variables.griefpreventionPresent = true; BBLogger.println("GriefPrevention found! Integrating!"); continue;
+			
+			}
+		}
+		
+		
+		
 		// execution
 		this.getCommand("spawn").setExecutor(new spawn());
 		this.getCommand("setspawn").setExecutor(new setspawn());
@@ -71,6 +86,8 @@ public final class BukkitBasics extends JavaPlugin {
 		this.getCommand("fly").setExecutor(new fly());
 		this.getCommand("warp").setExecutor(new warp());
 		this.getCommand("setwarp").setExecutor(new setwarp());
+		this.getCommand("home").setExecutor(new home());
+		this.getCommand("sethome").setExecutor(new sethome());
 		
 		// tab completion
 		this.getCommand("spawn").setTabCompleter(new spawn());
@@ -89,6 +106,8 @@ public final class BukkitBasics extends JavaPlugin {
 		this.getCommand("fly").setTabCompleter(new fly());
 		this.getCommand("warp").setTabCompleter(new warp());
 		this.getCommand("setwarp").setTabCompleter(new setwarp());
+		this.getCommand("home").setTabCompleter(new home());
+		this.getCommand("sethome").setTabCompleter(new sethome());
 		
 	}
 

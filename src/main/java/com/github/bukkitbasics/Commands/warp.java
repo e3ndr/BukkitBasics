@@ -44,7 +44,7 @@ public class warp implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		
-		String[] data = WarpDatabase.get(args[0]);
+		String[] data = WarpDatabase.get(args[0], null); // REWRITE make more like /home :/
 		
 		if (data.length == 0) {
 			sender.sendMessage(lang.get("warp.not_found"));

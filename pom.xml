@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.bukkitbasics</groupId>
     <artifactId>bukkitbasics</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <build>
         <plugins>
             <plugin>
@@ -42,6 +42,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+ 		<repository>
+     		<id>jitpack.io</id>
+     		<url>https://jitpack.io</url>
+ 		</repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -59,9 +63,21 @@
     		<scope>compile</scope>
 		</dependency>
 		<dependency>
+ 			<groupId>com.github.ProSavage</groupId>
+ 			<artifactId>SavageFactions</artifactId>
+ 			<version>1.6.x-0.1.21-gbdd5473-400</version>
+ 			<scope>provided</scope>
+		</dependency>
+		<dependency>
   			<groupId>org.apache.commons</groupId>
   			<artifactId>commons-lang3</artifactId>
   			<version>3.8.1</version>
 		</dependency>
+		<dependency>
+	    	<groupId>com.github.TechFortress</groupId>
+	    	<artifactId>GriefPrevention</artifactId>
+	    	<version>16.7.1</version>
+	    	<scope>provided</scope>
+	</dependency>
     </dependencies>
 </project>

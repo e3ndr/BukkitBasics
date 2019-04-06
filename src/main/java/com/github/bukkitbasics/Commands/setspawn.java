@@ -28,13 +28,13 @@ public class setspawn implements CommandExecutor, TabCompleter {
 					player.getLocation().getWorld().getName(), 
 					String.valueOf(player.getLocation().getPitch()), 
 					String.valueOf(player.getLocation().getYaw()),
-					"null",
-					"spawn"
+					"BukkitBasics.spawn",
+					"Spawn"
 			};
 			WarpDatabase.add("spawn", data);
 			return true;
 		} else {
-			sender.sendMessage(lang.get("warp.no_perm").replace("$permission", "BukkitBasics.spawn.set")); // TODO lang
+			sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.spawn.set"));
 			return false;
 		}
 	}
