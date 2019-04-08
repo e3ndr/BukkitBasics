@@ -26,6 +26,7 @@ import com.github.bukkitbasics.Config.lang;
 import com.github.bukkitbasics.Listeners.DynamicServerMotd;
 import com.github.bukkitbasics.Listeners.GeneralListener;
 import com.github.bukkitbasics.Util.BBLogger;
+import com.github.bukkitbasics.Util.Integration;
 
 public final class BukkitBasics extends JavaPlugin {
 	public static BukkitBasics instance;
@@ -58,16 +59,18 @@ public final class BukkitBasics extends JavaPlugin {
 		}
 		
 		// Soft dependencies
-		Plugin[] plugins = getServer().getPluginManager().getPlugins();
-		for (Plugin plugin : plugins) {
-			switch (plugin.getName()) {
-				case "Factions": variables.factionsPresent = true; BBLogger.println("Factions found! Integrating!"); continue;
-				case "GriefPrevention": variables.griefpreventionPresent = true; BBLogger.println("GriefPrevention found! Integrating!"); continue;
-			
+		try {
+			Plugin[] plugins = getServer().getPluginManager().getPlugins();
+			for (Plugin plugin : plugins) {
+				switch (plugin.getName()) {
+					case "Factions": variables.factionsPresent = true; BBLogger.println("Factions found! Integrating!"); Integration.register("com.github.bukkitbasics.Integration.FactionsIntegration"); continue;
+					case "GriefPrevention": variables.griefpreventionPresent = true; BBLogger.println("GriefPrevention found! Integrating!"); Integration.register("com.github.bukkitbasics.Integration.GriefPreventionIntegration"); continue;
+				
+				}
 			}
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+			BBLogger.exception(e);
 		}
-		
-		
 		
 		// execution
 		this.getCommand("spawn").setExecutor(new spawn());

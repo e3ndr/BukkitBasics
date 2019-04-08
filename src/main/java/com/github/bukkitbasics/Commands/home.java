@@ -60,21 +60,21 @@ public class home implements CommandExecutor, TabCompleter {
 			if (args.length == 1) {
 				if (sender.hasPermission("BukkitBasics.home")) {
 					Player player = (Player) sender;
-					if (PlayerUtil.hasLandPermission(player, player.getLocation())) {
-						String[] data = HomeDatabase.get(args[0], player.getUniqueId().toString());
-						
-						if (data.length == 0) {
-							sender.sendMessage(lang.get("home.not_found"));
-							return true;
-						}
-						
-						Location loc = new Location(Bukkit.getWorld(data[3]), 0, 0, 0);
-						loc.setX(Double.valueOf(data[0]));
-						loc.setY(Double.valueOf(data[1]));
-						loc.setZ(Double.valueOf(data[2]));
-						loc.setPitch(Double.valueOf(data[4]).floatValue());
-						loc.setYaw(Double.valueOf(data[5]).floatValue());
-						
+					
+					String[] data = HomeDatabase.get(args[0], player.getUniqueId().toString());
+					
+					if (data.length == 0) {
+						sender.sendMessage(lang.get("home.not_found"));
+						return true;
+					}
+					
+					Location loc = new Location(Bukkit.getWorld(data[3]), 0, 0, 0);
+					loc.setX(Double.valueOf(data[0]));
+					loc.setY(Double.valueOf(data[1]));
+					loc.setZ(Double.valueOf(data[2]));
+					loc.setPitch(Double.valueOf(data[4]).floatValue());
+					loc.setYaw(Double.valueOf(data[5]).floatValue());
+					if (PlayerUtil.hasLandPermission(player, loc)) {
 						player.teleport(loc);
 						player.sendMessage(lang.get("home.teleport").replace("$home", args[0]));
 						return true;
@@ -94,7 +94,7 @@ public class home implements CommandExecutor, TabCompleter {
 					if (!player.hasPlayedBefore()) {
 						sender.sendMessage(lang.get("error.player-never-played").replace("$player", args[0]));
 						return true;
-					} else if (PlayerUtil.hasLandPermission(player, player.getLocation())) {
+					} else {
 						String[] data = HomeDatabase.get(args[0], player.getUniqueId().toString());
 						
 						if (data.length == 0) {
@@ -109,13 +109,15 @@ public class home implements CommandExecutor, TabCompleter {
 						loc.setPitch(Double.valueOf(data[4]).floatValue());
 						loc.setYaw(Double.valueOf(data[5]).floatValue());
 						
-						Player executor = (Player) sender;
-						executor.teleport(loc);
-						executor.sendMessage(lang.get("home.teleport.others").replace("$home", args[0]).replace("$player", args[1]));
-						return true;
-					} else {
-						sender.sendMessage(lang.get("no.perm.land"));
-						return true;
+						if (PlayerUtil.hasLandPermission(player, loc)) {
+							Player executor = (Player) sender;
+							executor.teleport(loc);
+							executor.sendMessage(lang.get("home.teleport.others").replace("$home", args[0]).replace("$player", args[1]));
+							return true;
+						} else {
+							sender.sendMessage(lang.get("no.perm.land"));
+							return true;
+						}
 					}
 				} else {
 					sender.sendMessage(lang.get("no.perm").replace("$permission", "BukkitBasics.home.others"));

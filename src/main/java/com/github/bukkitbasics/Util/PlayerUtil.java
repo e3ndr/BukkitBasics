@@ -1,12 +1,11 @@
 package com.github.bukkitbasics.Util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-
-import com.github.bukkitbasics.variables;
-import com.github.bukkitbasics.Integration.GriefPreventionIntegration;
-import com.github.bukkitbasics.Integration.FactionsIntegration;
 
 public class PlayerUtil {
 	public boolean isVanished(Player player) {
@@ -18,11 +17,14 @@ public class PlayerUtil {
 	
 	public static boolean hasLandPermission(Player player, Location loc) {
 		boolean state = true;
-		if (variables.factionsPresent) {
-			if (!FactionsIntegration.landPermission(player, loc)) state = false;
-		}
-		if (variables.griefpreventionPresent) {
-			if (GriefPreventionIntegration.landPermission(player, loc) != null) state = false;
+		for (Method method : Integration.LandPermissionMethods()) {
+			try {
+				boolean status = (Boolean) method.invoke(method.getDeclaringClass().newInstance(), player, loc);
+				if (!status) state = false;
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+				BBLogger.exception(e);
+			}
+			if (!state) break;
 		}
 		
 		return state;

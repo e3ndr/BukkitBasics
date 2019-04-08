@@ -10,8 +10,8 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Relation;
 
-public class FactionsIntegration {
-	public static boolean landPermission(Player player, Location loc) {
+public class FactionsIntegration implements BukkitBasicsIntegrate {
+	public boolean LandPermission(Player player, Location loc) {
 		Faction faction = Board.getInstance().getFactionAt(new FLocation(loc));
 		FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
 
