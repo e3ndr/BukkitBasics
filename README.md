@@ -12,7 +12,7 @@ Simple! ([Eclipse](https://www.eclise.org))
 **5)** Follow through the import procedure.  
 **6)** Open a CMD window, (Or powershell and run cmd)  
 **7)** Download Xcore from [here](https://github.com/Xpulse/Xcore)  
-**8)** Do this command (you need maven installed) "mvn install:install-file -Dfile=<path-to-xcore> -DgroupId=com.github.xcore -DartifactId=xcore -Dversion=1.1.0 -Dpackaging=jar" without the quotes.  
+**8)** Do this command (you need maven installed) `mvn install:install-file -Dfile=<path-to-xcore> -DgroupId=com.github.xcore -DartifactId=xcore -Dversion=1.1.0 -Dpackaging=jar`.  
 **9)** Whether via Eclipse or maven do "maven clean" followed by "maven install"  
 **10)** The jar will be in /target with the name "bukkitbasics-<version>-included (It's very important to use the one labeled as "included")  
 
