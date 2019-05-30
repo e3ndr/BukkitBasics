@@ -1,7 +1,7 @@
 # EndersAdditions
 
 ## The best plugin!
-We all know and love EssentialsX, but it sorta lacks integration and order. With BukkitBasics you are immediately aware of customization via lang.txt and the ability to change options via config.yml. It even includes native integration with GroefPrevention and SavageFactions!
+We all know and love EssentialsX, but it sorta lacks integration and order. With BukkitBasics you are immediately aware of customization via lang.txt and the ability to change options via config.yml. It even includes native integration with GriefPrevention and SavageFactions!
 
 ## That's cool bro, but how do I compile it?  
 Simple! ([Eclipse](https://www.eclise.org))  
