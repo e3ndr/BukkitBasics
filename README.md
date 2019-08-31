@@ -1,5 +1,7 @@
 # EndersAdditions
 
+# Note that this is my first bukkit plugin that I developed with a goal, it's dirty and remains as documentation for beginners.
+
 ## The best plugin!
 We all know and love EssentialsX, but it sorta lacks integration and order. With BukkitBasics you are immediately aware of customization via lang.txt and the ability to change options via config.yml. It even includes native integration with GriefPrevention and SavageFactions!
 
